@@ -49,4 +49,19 @@ RSpec.describe JsonWorld::PropertyDefinable do
       expect(klass.property_definitions[1].property_name).to eq :name
     end
   end
+
+  describe "#as_json" do
+    subject do
+      klass.new(id: 1, name: "alice").as_json
+    end
+
+    it "returns a JSON compatible hash representation of the instance" do
+      is_expected.to eq(
+        {
+          "id" => 1,
+          "name" => "alice",
+        },
+      )
+    end
+  end
 end

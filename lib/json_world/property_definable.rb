@@ -1,33 +1,18 @@
 require "active_support/concern"
 require "active_support/core_ext/object/json"
 require "active_support/json"
+require "json_world/json_encodable"
 require "json_world/property_definition"
 
 module JsonWorld
   module PropertyDefinable
     extend ActiveSupport::Concern
 
-    # @param [Hash{Symbol => Object}] options :except / :only
-    # @return [Hash]
-    def as_json(options = {})
-      properties(options).as_json(options)
+    included do
+      include JsonWorld::JsonEncodable
     end
 
     private
-
-    # @param [Hash{Symbol => Object}] options :except / :only
-    # @return [Hash]
-    def properties(options = {})
-      names = self.class.property_names
-      names = names - Array(options[:except]) if options[:except]
-      names = names & Array(options[:only]) if options[:only]
-      names.inject({}) do |hash, property_name|
-        key = property_name
-        value = send(property_name)
-        value = value.iso8601 if value.is_a?(Time)
-        hash.merge(key => value)
-      end
-    end
 
     module ClassMethods
       attr_writer :property_definitions
