@@ -1,8 +1,8 @@
-RSpec.describe JsonSchemaWorld::PropertyDefinable do
+RSpec.describe JsonWorld::PropertyDefinable do
   describe ".define_property" do
     let(:property_klass) do
       Class.new do
-        include JsonSchemaWorld::PropertyDefinable
+        include JsonWorld::PropertyDefinable
 
         define_property(
           :id,
@@ -25,7 +25,7 @@ RSpec.describe JsonSchemaWorld::PropertyDefinable do
       end
     end
 
-    it "appends JsonSchemaWorld::PropertyDefinition" do
+    it "appends JsonWorld::PropertyDefinition" do
       expect(property_klass.property_definitions[0].property_name).to eq :id
       expect(property_klass.property_definitions[1].property_name).to eq :name
     end

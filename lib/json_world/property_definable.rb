@@ -1,9 +1,9 @@
 require "active_support/concern"
 require "active_support/core_ext/object/json"
 require "active_support/json"
-require "json_schema_world/property_definition"
+require "json_world/property_definition"
 
-module JsonSchemaWorld
+module JsonWorld
   module PropertyDefinable
     extend ActiveSupport::Concern
 
@@ -46,7 +46,7 @@ module JsonSchemaWorld
       # @param [Symbol] property_name
       # @param [Hash{Symbol => ObjectA options}]
       def define_property(property_name, options = {})
-        property_definitions << JsonSchemaWorld::PropertyDefinition.new(
+        property_definitions << JsonWorld::PropertyDefinition.new(
           options.merge(property_name: property_name)
         )
       end
@@ -57,7 +57,7 @@ module JsonSchemaWorld
         child.property_definitions = property_definitions.clone
       end
 
-      # @return [Array<JsonSchemaWorld::PropertyDefinition>]
+      # @return [Array<JsonWorld::PropertyDefinition>]
       def property_definitions
         @property_definitions ||= []
       end

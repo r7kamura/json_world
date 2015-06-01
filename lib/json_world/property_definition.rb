@@ -1,4 +1,4 @@
-module JsonSchemaWorld
+module JsonWorld
   class PropertyDefinition
     # @return [Symbol]
     attr_reader :property_name

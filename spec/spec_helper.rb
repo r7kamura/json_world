@@ -1,4 +1,4 @@
-require "json_schema_world"
+require "json_world"
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

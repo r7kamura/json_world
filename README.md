@@ -1,11 +1,11 @@
-# JsonSchemaWorld
+# JsonWorld
 Provides DSL to define JSON Schema representation of your class.
 
 ## Usage
 ```rb
 class User
   # Import .detinf_property method
-  include JsonSchemaWorld::PropertyDefinable
+  include JsonWorld::PropertyDefinable
 
   # Define User property has id property, which is a Integer type,
   # and might be 42 for example.
@@ -45,5 +45,5 @@ User.as_json_schema
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "json_schema_world"
+gem "json_world"
 ```
