@@ -48,6 +48,11 @@ module JsonWorld
 
       # @todo
       def properties_as_json_schema
+        property_definitions.inject({}) do |result, property_definition|
+          result.merge(
+            property_definition.property_name => property_definition.as_json_schema,
+          )
+        end
       end
 
       # @param [Symbol] property_name
