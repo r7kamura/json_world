@@ -4,8 +4,8 @@ Provides DSL to define JSON Schema representation of your class.
 ## Usage
 ```rb
 class User
-  # Declare this class is a property of a JSON Schema.
-  include JsonSchemaWorld::Property
+  # Import .detinf_property method
+  include JsonSchemaWorld::PropertyDefinable
 
   # Define User property has id property, which is a Integer type,
   # and might be 42 for example.
