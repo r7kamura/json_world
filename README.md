@@ -4,19 +4,14 @@ Provides DSL to define JSON Schema representation of your class.
 ## Usage
 ```rb
 class User
-  # Import .detinf_property method
   include JsonWorld::PropertyDefinable
 
-  # Define User property has id property, which is a Integer type,
-  # and might be 42 for example.
   define_property(
     :id,
     example: 42,
     type: Integer,
   )
 
-  # Define User property has name property, which is a String type,
-  # and might be "r7kamura" for example.
   define_property(
     :name,
     example: "r7kamura",
@@ -27,17 +22,15 @@ class User
 
   # @param [Integer] id
   # @param [String] name
-  def initialize(id:, name:)
+  def initialize(id: nil, name: nil)
     @id = id
     @name = name
   end
 end
 
-# Returns a JSON Representation of a User instance,
-# that contains id and name properties.
 User.new(id: 1, name: "alice").to_json
+#=> '{"id":1,"name":"alice"}'
 
-# Returns a Hash that represents JSON Schema of User class.
 User.as_json_schema
 ```
 

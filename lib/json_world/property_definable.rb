@@ -35,11 +35,8 @@ module JsonWorld
       # @return [Hash]
       def as_json_schema
         {
-          description: localized_description,
-          links: links.map(&:as_json_schema),
           properties: properties_as_json_schema,
-          required: required_property_names,
-          title: localized_title,
+          required: property_names,
         }
       end
 
@@ -51,10 +48,18 @@ module JsonWorld
         )
       end
 
+      # @return [String, nil]
+      def description
+      end
+
       # @note Override
       def inherited(child)
         super
         child.property_definitions = property_definitions.clone
+      end
+
+      # @todo
+      def properties_as_json_schema
       end
 
       # @return [Array<JsonWorld::PropertyDefinition>]
@@ -62,10 +67,8 @@ module JsonWorld
         @property_definitions ||= []
       end
 
-      private
-
       # @return [Array<Symbol>]
-      def required_property_names
+      def property_names
         property_definitions.map(&:property_name)
       end
     end
