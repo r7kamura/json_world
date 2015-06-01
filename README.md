@@ -1,39 +1,49 @@
 # JsonSchemaWorld
+Provides DSL to define JSON Schema representation of your class.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/json_schema_world`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Usage
+```rb
+class User
+  # Declare this class is a property of a JSON Schema.
+  include JsonSchemaWorld::Property
 
-TODO: Delete this and the text above, and describe your gem
+  # Define User property has id property, which is a Integer type,
+  # and might be 42 for example.
+  define_property(
+    :id,
+    example: 42,
+    type: Integer,
+  )
+
+  # Define User property has name property, which is a String type,
+  # and might be "r7kamura" for example.
+  define_property(
+    :name,
+    example: "r7kamura",
+    type: String,
+  )
+
+  attr_reader :id, :name
+
+  # @param [Integer] id
+  # @param [String] name
+  def initialize(id:, name:)
+    @id = id
+    @name = name
+  end
+end
+
+# Returns a JSON Representation of a User instance,
+# that contains id and name properties.
+User.new(id: 1, name: "alice").to_json
+
+# Returns a Hash that represents JSON Schema of User class.
+User.as_json_schema
+```
 
 ## Installation
-
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'json_schema_world'
+gem "json_schema_world"
 ```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install json_schema_world
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/json_schema_world/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
