@@ -40,18 +40,6 @@ module JsonWorld
         }
       end
 
-      # @param [Symbol] property_name
-      # @param [Hash{Symbol => ObjectA options}]
-      def define_property(property_name, options = {})
-        property_definitions << JsonWorld::PropertyDefinition.new(
-          options.merge(property_name: property_name)
-        )
-      end
-
-      # @return [String, nil]
-      def description
-      end
-
       # @note Override
       def inherited(child)
         super
@@ -60,6 +48,14 @@ module JsonWorld
 
       # @todo
       def properties_as_json_schema
+      end
+
+      # @param [Symbol] property_name
+      # @param [Hash{Symbol => ObjectA options}]
+      def property(property_name, options = {})
+        property_definitions << JsonWorld::PropertyDefinition.new(
+          options.merge(property_name: property_name)
+        )
       end
 
       # @return [Array<JsonWorld::PropertyDefinition>]

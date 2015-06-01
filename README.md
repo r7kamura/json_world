@@ -6,13 +6,13 @@ Provides DSL to define JSON Schema representation of your class.
 class User
   include JsonWorld::PropertyDefinable
 
-  define_property(
+  property(
     :id,
     example: 42,
     type: Integer,
   )
 
-  define_property(
+  property(
     :name,
     example: "r7kamura",
     type: String,
