@@ -1,12 +1,9 @@
+require "active_support/concern"
 require "json_schema_world/property_definition"
 
 module JsonSchemaWorld
   module Property
-    class << self
-      def included(child)
-        child.extend(JsonSchemaWorld::Property::ClassMethods)
-      end
-    end
+    extend ActiveSupport::Concern
 
     module ClassMethods
       # @param [Symbol] property_name
