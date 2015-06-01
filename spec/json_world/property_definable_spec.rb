@@ -28,6 +28,16 @@ RSpec.describe JsonWorld::PropertyDefinable do
     subject do
       klass.as_json_schema
     end
+
+    it "returns the JSON Schema representation of the receiver class" do
+      is_expected.to eq(
+        properties: nil,
+        required: [
+          :id,
+          :name,
+        ],
+      )
+    end
   end
 
   describe ".property" do
