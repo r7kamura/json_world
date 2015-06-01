@@ -15,6 +15,11 @@ RSpec.describe JsonWorld::PropertyDefinable do
         type: String,
       )
 
+      link(
+        :get_user,
+        path: "/users/:user_id",
+      )
+
       attr_reader :id, :name
 
       def initialize(id:, name:)
@@ -31,6 +36,12 @@ RSpec.describe JsonWorld::PropertyDefinable do
 
     it "returns the JSON Schema representation of the receiver class" do
       is_expected.to eq(
+        links: [
+          {
+            href: "/users/:user_id",
+            title: "get_user",
+          },
+        ],
         properties: {
           id: {},
           name: {},
