@@ -32,6 +32,11 @@ module JsonWorld
       end
     end
 
+    # @return [false, true] True if explicitly this property is defined as optional
+    def optional?
+      !!@options[:optional]
+    end
+
     private
 
     # @return [String, nil]

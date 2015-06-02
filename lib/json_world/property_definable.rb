@@ -25,7 +25,7 @@ module JsonWorld
         {
           links: links_as_json_schema,
           properties: properties_as_json_schema,
-          required: property_names,
+          required: required_property_names,
         }.reject do |_key, value|
           value.nil? || value.empty?
         end
@@ -73,6 +73,11 @@ module JsonWorld
       # @return [Array<Symbol>]
       def property_names
         property_definitions.map(&:property_name)
+      end
+
+      # @return [Array<Symbol>]
+      def required_property_names
+        property_definitions.reject(&:optional?).map(&:property_name)
       end
 
       # @note .as_json_schema wrappter

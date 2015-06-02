@@ -21,6 +21,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
         :name,
         description: "The name of this user",
         example: "alice",
+        optional: true,
         pattern: /^\w{5}$/,
         type: [NilClass, String],
       )
@@ -137,7 +138,6 @@ RSpec.describe JsonWorld::PropertyDefinable do
         required: [
           :created_at,
           :id,
-          :name,
           :stats,
           :tags,
         ],
