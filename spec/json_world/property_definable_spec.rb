@@ -12,6 +12,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
       property(
         :name,
         example: "r7kamura",
+        pattern: /^r\dkamura$/,
         type: String,
       )
 
@@ -43,8 +44,13 @@ RSpec.describe JsonWorld::PropertyDefinable do
           },
         ],
         properties: {
-          id: {},
-          name: {},
+          id: {
+            type: "integer",
+          },
+          name: {
+            pattern: '^r\dkamura$',
+            type: "string",
+          },
         },
         required: [
           :id,

@@ -13,7 +13,48 @@ module JsonWorld
     # @todo
     # @return [Hash]
     def as_json_schema
-      {}
+      {
+        pattern: pattern_in_string,
+        type: type_in_string,
+      }.reject do |_key, value|
+        value.nil? || value.empty?
+      end
+    end
+
+    private
+
+    # @note pattern can be used only when type is String or not specified
+    # @return [Regexp, nil]
+    def pattern
+      @options[:pattern]
+    end
+
+    # @return [String, nil]
+    def pattern_in_string
+      if pattern
+        pattern.inspect[1..-2]
+      end
+    end
+
+    # @return [String, nil]
+    def type
+      @options[:type]
+    end
+
+    # @return [String, nil]
+    def type_in_string
+      case
+      when type == Array
+        "array"
+      when type == Float
+        "float"
+      when type == Hash
+        "object"
+      when type == Integer
+        "integer"
+      when type == String || type == Time
+        "string"
+      end
     end
   end
 end
