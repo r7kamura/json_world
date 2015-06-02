@@ -5,18 +5,21 @@ RSpec.describe JsonWorld::PropertyDefinable do
 
       property(
         :created_at,
+        description: "The time when this user was born",
         example: "2000-01-01T00:00:00+00:00",
         type: Time,
       )
 
       property(
         :id,
+        description: "An unique ID assigned to each user",
         example: 1,
         type: Integer,
       )
 
       property(
         :name,
+        description: "The name of this user",
         example: "alice",
         pattern: /^\w{5}$/,
         type: String,
@@ -57,15 +60,18 @@ RSpec.describe JsonWorld::PropertyDefinable do
         ],
         properties: {
           created_at: {
+            description: "The time when this user was born",
             example: "2000-01-01T00:00:00+00:00",
             format: "date-time",
             type: "string",
           },
           id: {
+            description: "An unique ID assigned to each user",
             example: 1,
             type: "integer",
           },
           name: {
+            description: "The name of this user",
             example: "alice",
             pattern: '^\w{5}$',
             type: "string",

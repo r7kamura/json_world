@@ -14,6 +14,7 @@ module JsonWorld
     # @return [Hash]
     def as_json_schema
       {
+        description: description,
         example: example,
         format: format_type,
         pattern: pattern_in_string,
@@ -24,6 +25,11 @@ module JsonWorld
     end
 
     private
+
+    # @return [String, nil]
+    def description
+      @options[:description]
+    end
 
     # @return [Object]
     def example
