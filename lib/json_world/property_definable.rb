@@ -38,12 +38,6 @@ module JsonWorld
         child.property_definitions = property_definitions.clone
       end
 
-      # @note .as_json_schema wrappter
-      # @return [String]
-      def to_json_schema
-        JSON.pretty_generate(as_json_schema)
-      end
-
       # @param [Symbol] link_name
       # @param [Hash{Symbol => Object}] options
       def link(link_name, options = {})
@@ -79,6 +73,12 @@ module JsonWorld
       # @return [Array<Symbol>]
       def property_names
         property_definitions.map(&:property_name)
+      end
+
+      # @note .as_json_schema wrappter
+      # @return [String]
+      def to_json_schema
+        JSON.pretty_generate(as_json_schema)
       end
 
       private
