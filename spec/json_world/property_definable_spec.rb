@@ -26,8 +26,21 @@ RSpec.describe JsonWorld::PropertyDefinable do
       )
 
       property(
+        :stats,
+        properties: {
+          articles_count: {
+            description: "How many articles this user has posted",
+            example: 10,
+            type: Integer,
+          },
+        },
+        type: Hash,
+      )
+
+      property(
         :tags,
         items: {
+          description: "An arbitrary tag",
           pattern: /^\w{3,20}$/,
           type: String,
           unique: true,
@@ -49,11 +62,17 @@ RSpec.describe JsonWorld::PropertyDefinable do
         :tags,
       )
 
-      def initialize(id:, name:, tags:)
+      def initialize(articles_count:, id:, name:, tags:)
+        @articles_count = articles_count
         @created_at = Time.now
         @id = id
         @name = name
         @tags = tags
+      end
+
+      # @return [Hash{Symbol => Integer}]
+      def stats
+        { articles_count: @articles_count }
       end
     end
   end
@@ -91,8 +110,20 @@ RSpec.describe JsonWorld::PropertyDefinable do
             pattern: '^\w{5}$',
             type: ["null", "string"],
           },
+          stats: {
+            properties: {
+              articles_count: {
+                description: "How many articles this user has posted",
+                example: 10,
+                type: "integer",
+              },
+            },
+            required: [:articles_count],
+            type: "object",
+          },
           tags: {
             items: {
+              description: "An arbitrary tag",
               pattern: '^\w{3,20}$',
               type: "string",
               uniqueItems: true,
@@ -105,6 +136,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
           :created_at,
           :id,
           :name,
+          :stats,
           :tags,
         ],
       )
@@ -114,6 +146,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
   describe "#as_json" do
     subject do
       klass.new(
+        articles_count: 10,
         id: 1,
         name: "alice",
         tags: ["female", "teenage"],
@@ -126,6 +159,9 @@ RSpec.describe JsonWorld::PropertyDefinable do
           "created_at" => instance_of(String),
           "id" => 1,
           "name" => "alice",
+          "stats" => {
+            "articles_count" => 10,
+          },
           "tags" => ["female", "teenage"],
         )
       )

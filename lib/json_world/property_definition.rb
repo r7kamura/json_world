@@ -10,7 +10,12 @@ module JsonWorld
       @property_name = property_name
     end
 
-    # @return [Hash]
+    # @return [Hash{Symbol => Object}]
+    def as_nested_json_schema
+      { property_name => as_json_schema }
+    end
+
+    # @return [Hash{Symbol => Object}]
     def as_json_schema
       {
         description: description,
@@ -18,7 +23,9 @@ module JsonWorld
         format: format_type,
         items: items_as_json_schema,
         pattern: pattern_in_string,
-        type: type_in_string,
+        properties: properties_as_json_schema,
+        required: required_property_names,
+        type: type,
         uniqueItems: unique_flag,
       }.reject do |_key, value|
         value.nil? || value.respond_to?(:empty?) && value.empty?
@@ -66,31 +73,51 @@ module JsonWorld
       end
     end
 
-    # @note type can be an Array
-    # @return [Array<String>]
-    def types
-      Array(@options[:type])
+    # @return [Hash, nil]
+    def properties_as_json_schema
+      if @options[:properties]
+        @options[:properties].map do |property_name, options|
+          JsonWorld::PropertyDefinition.new(
+            options.merge(
+              property_name: property_name,
+            )
+          ).as_nested_json_schema
+        end.inject({}, :merge)
+      end
+    end
+
+    # @return [Array<Symbol>, nil]
+    def required_property_names
+      if @options[:properties]
+        @options[:properties].keys
+      end
     end
 
     # @return [Array<String>, String, nil]
-    def type_in_string
-      strings = types.map do |type|
+    def type
+      strings = types.map do |this_type|
         case
-        when type == Array
+        when this_type == Array
           "array"
-        when type == Float
+        when this_type == Float
           "float"
-        when type == Hash
+        when this_type == Hash
           "object"
-        when type == Integer
+        when this_type == Integer
           "integer"
-        when type == NilClass
+        when this_type == NilClass
           "null"
-        when type == String || type == Time
+        when this_type == String || this_type == Time
           "string"
         end
       end.compact
       strings.length >= 2 ? strings : strings.first
+    end
+
+    # @note type can be an Array
+    # @return [Array<String>]
+    def types
+      Array(@options[:type])
     end
 
     # @return [false, nil, true]
