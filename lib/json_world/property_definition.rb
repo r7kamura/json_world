@@ -113,6 +113,8 @@ module JsonWorld
         case
         when this_type == Array
           "array"
+        when this_type == FalseClass || this_type == TrueClass
+          "boolean"
         when this_type == Float
           "float"
         when this_type == Hash
@@ -124,7 +126,7 @@ module JsonWorld
         when this_type == String || this_type == Time
           "string"
         end
-      end.compact
+      end.compact.uniq
       strings.length >= 2 ? strings : strings.first
     end
 

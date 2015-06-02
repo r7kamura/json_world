@@ -43,6 +43,11 @@ RSpec.describe JsonWorld::DSL do
       )
 
       property(
+        :private,
+        type: [FalseClass, TrueClass],
+      )
+
+      property(
         :stats,
         properties: {
           articles_count: {
@@ -104,6 +109,10 @@ RSpec.describe JsonWorld::DSL do
         @tags = tags
       end
 
+      def private
+        false
+      end
+
       # @return [Hash{Symbol => Integer}]
       def stats
         { articles_count: @articles_count }
@@ -158,6 +167,9 @@ RSpec.describe JsonWorld::DSL do
             pattern: '^\w{5}$',
             type: ["null", "string"],
           },
+          private: {
+            type: "boolean",
+          },
           stats: {
             properties: {
               articles_count: {
@@ -183,6 +195,7 @@ RSpec.describe JsonWorld::DSL do
         required: [
           :created_at,
           :id,
+          :private,
           :stats,
           :tags,
         ],
@@ -218,6 +231,7 @@ RSpec.describe JsonWorld::DSL do
           "created_at" => instance_of(String),
           "id" => 1,
           "name" => "alice",
+          "private" => false,
           "stats" => {
             "articles_count" => 10,
           },
