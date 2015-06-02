@@ -1,6 +1,7 @@
 require "active_support/concern"
 require "active_support/core_ext/object/json"
 require "active_support/json"
+require "json"
 require "json_world/json_encodable"
 require "json_world/link_definition"
 require "json_world/property_definition"
@@ -36,6 +37,14 @@ module JsonWorld
         child.link_definitions = link_definitions
         child.property_definitions = property_definitions.clone
       end
+
+      # @note .as_json_schema wrappter
+      # @return [String]
+      def to_json_schema
+        JSON.pretty_generate(as_json_schema)
+      end
+
+      private
 
       # @param [Symbol] link_name
       # @param [Hash{Symbol => Object}] options

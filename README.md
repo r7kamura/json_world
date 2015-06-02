@@ -8,14 +8,20 @@ class User
 
   property(
     :id,
-    example: 42,
+    example: 1,
     type: Integer,
   )
 
   property(
     :name,
-    example: "r7kamura",
+    example: "alice",
+    pattern: /^\w{5}$/,
     type: String,
+  )
+
+  link(
+    :get_user,
+    path: "/users/:user_id",
   )
 
   attr_reader :id, :name
@@ -29,9 +35,32 @@ class User
 end
 
 User.new(id: 1, name: "alice").to_json
-#=> '{"id":1,"name":"alice"}'
+# '{"id":1,"name":"alice"}'
 
-User.as_json_schema
+User.to_json_schema
+# '{
+#   "links": [
+#     {
+#       "href": "/users/:user_id",
+#       "title": "get_user"
+#     }
+#   ],
+#   "properties": {
+#     "id": {
+#       "example": 1,
+#       "type": "integer"
+#     },
+#     "name": {
+#       "example": "alice",
+#       "pattern": "^\\w{5}$",
+#       "type": "string"
+#     }
+#   },
+#   "required": [
+#     "id",
+#     "name"
+#   ]
+# }'
 ```
 
 ## Installation
