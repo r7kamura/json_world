@@ -16,6 +16,7 @@ module JsonWorld
     # @return [Hash]
     def as_json_schema
       {
+        description: description,
         href: path,
         method: http_method,
         title: title,
@@ -25,6 +26,11 @@ module JsonWorld
     end
 
     private
+
+    # @return [String, nil]
+    def description
+      @options[:description]
+    end
 
     # @note #method is reserved by Kernel.#method ;(
     # @return [String]

@@ -27,6 +27,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
 
       link(
         :get_user,
+        description: "Get a single user",
         path: "/users/:user_id",
       )
 
@@ -53,6 +54,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
       is_expected.to eq(
         links: [
           {
+            description: "Get a single user",
             href: "/users/:user_id",
             method: "GET",
             title: "get_user",
