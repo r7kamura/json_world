@@ -39,6 +39,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
 
       property(
         :tags,
+        example: ["male"],
         items: {
           description: "An arbitrary tag",
           pattern: /^\w{3,20}$/,
@@ -122,6 +123,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
             type: "object",
           },
           tags: {
+            example: ["male"],
             items: {
               description: "An arbitrary tag",
               pattern: '^\w{3,20}$',
