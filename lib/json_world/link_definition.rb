@@ -19,6 +19,7 @@ module JsonWorld
         description: description,
         href: path,
         method: http_method,
+        schema: schema,
         title: title,
       }.reject do |_key, value|
         value.nil? || value.empty?
@@ -41,6 +42,16 @@ module JsonWorld
     # @return [String]
     def path
       @options[:path]
+    end
+
+    # @return [Hash{Symbol => Object}, nil]
+    def schema
+      if @options[:parameters]
+        JsonWorld::PropertyDefinition.new(
+          properties: @options[:parameters],
+          property_name: :schema,
+        ).as_json_schema
+      end
     end
 
     # @return [String]

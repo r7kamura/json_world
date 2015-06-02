@@ -56,6 +56,22 @@ RSpec.describe JsonWorld::PropertyDefinable do
         path: "/users/:user_id",
       )
 
+      link(
+        :create_user,
+        description: "Create a new user",
+        method: "POST",
+        parameters: {
+          name: {
+            description: "The name of this user",
+            example: "alice",
+            optional: true,
+            pattern: /^\w{5}$/,
+            type: [NilClass, String],
+          },
+        },
+        path: "/users",
+      )
+
       attr_reader(
         :created_at,
         :id,
@@ -91,6 +107,22 @@ RSpec.describe JsonWorld::PropertyDefinable do
             href: "/users/:user_id",
             method: "GET",
             title: "get_user",
+          },
+          {
+            description: "Create a new user",
+            href: "/users",
+            method: "POST",
+            schema: {
+              properties: {
+                name: {
+                  description: "The name of this user",
+                  example: "alice",
+                  pattern: '^\w{5}$',
+                  type: ["null", "string"],
+                },
+              },
+            },
+            title: "create_user",
           },
         ],
         properties: {

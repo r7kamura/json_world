@@ -81,20 +81,27 @@ module JsonWorld
     # @return [Hash, nil]
     def properties_as_json_schema
       if @options[:properties]
+        property_definitions.map(&:as_nested_json_schema).inject({}, :merge)
+      end
+    end
+
+    # @return [Array, nil]
+    def property_definitions
+      if @options[:properties]
         @options[:properties].map do |property_name, options|
           JsonWorld::PropertyDefinition.new(
             options.merge(
               property_name: property_name,
             )
-          ).as_nested_json_schema
-        end.inject({}, :merge)
+          )
+        end
       end
     end
 
     # @return [Array<Symbol>, nil]
     def required_property_names
       if @options[:properties]
-        @options[:properties].keys
+        property_definitions.reject(&:optional?).map(&:property_name)
       end
     end
 
