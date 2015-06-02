@@ -25,6 +25,17 @@ RSpec.describe JsonWorld::PropertyDefinable do
         type: String,
       )
 
+      property(
+        :tags,
+        items: {
+          pattern: /^\w{3,20}$/,
+          type: String,
+          unique: true,
+        },
+        type: Array,
+        unique: true,
+      )
+
       link(
         :get_user,
         description: "Get a single user",
@@ -35,12 +46,14 @@ RSpec.describe JsonWorld::PropertyDefinable do
         :created_at,
         :id,
         :name,
+        :tags,
       )
 
-      def initialize(id:, name:)
+      def initialize(id:, name:, tags:)
         @created_at = Time.now
         @id = id
         @name = name
+        @tags = tags
       end
     end
   end
@@ -78,11 +91,21 @@ RSpec.describe JsonWorld::PropertyDefinable do
             pattern: '^\w{5}$',
             type: "string",
           },
+          tags: {
+            items: {
+              pattern: '^\w{3,20}$',
+              type: "string",
+              uniqueItems: true,
+            },
+            type: "array",
+            uniqueItems: true,
+          },
         },
         required: [
           :created_at,
           :id,
           :name,
+          :tags,
         ],
       )
     end
@@ -90,7 +113,11 @@ RSpec.describe JsonWorld::PropertyDefinable do
 
   describe "#as_json" do
     subject do
-      klass.new(id: 1, name: "alice").as_json
+      klass.new(
+        id: 1,
+        name: "alice",
+        tags: ["female", "teenage"],
+      ).as_json
     end
 
     it "returns a JSON compatible hash representation of the instance" do
@@ -99,6 +126,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
           "created_at" => instance_of(String),
           "id" => 1,
           "name" => "alice",
+          "tags" => ["female", "teenage"],
         )
       )
     end

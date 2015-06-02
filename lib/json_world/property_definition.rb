@@ -3,7 +3,7 @@ module JsonWorld
     # @return [Symbol]
     attr_reader :property_name
 
-    # @param [Symbol] property_name
+    # @param [Symbol, nil] property_name Note that unnamed property can be passed
     # @param [Hash{Symbol => Object}] options
     def initialize(property_name: nil, **options)
       @options = options
@@ -16,8 +16,10 @@ module JsonWorld
         description: description,
         example: example,
         format: format_type,
+        items: items_as_json_schema,
         pattern: pattern_in_string,
         type: type_in_string,
+        uniqueItems: unique_flag,
       }.reject do |_key, value|
         value.nil? || value.respond_to?(:empty?) && value.empty?
       end
@@ -40,6 +42,14 @@ module JsonWorld
     def format_type
       if type == Time
         "date-time"
+      end
+    end
+
+    # @note Tuple validation is not supported yet
+    # @return [Array<Hash>, nil]
+    def items_as_json_schema
+      if @options[:items]
+        JsonWorld::PropertyDefinition.new(@options[:items]).as_json_schema
       end
     end
 
@@ -74,6 +84,13 @@ module JsonWorld
         "integer"
       when type == String || type == Time
         "string"
+      end
+    end
+
+    # @return [false, nil, true]
+    def unique_flag
+      if @options.key?(:unique)
+        !!@options[:unique]
       end
     end
   end
