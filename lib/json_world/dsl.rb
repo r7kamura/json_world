@@ -7,7 +7,7 @@ require "json_world/link_definition"
 require "json_world/property_definition"
 
 module JsonWorld
-  module PropertyDefinable
+  module DSL
     extend ActiveSupport::Concern
 
     included do

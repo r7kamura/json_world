@@ -1,7 +1,7 @@
-RSpec.describe JsonWorld::PropertyDefinable do
+RSpec.describe JsonWorld::DSL do
   let(:klass) do
     Class.new do
-      include JsonWorld::PropertyDefinable
+      include JsonWorld::DSL
 
       title "Dummy object"
 
