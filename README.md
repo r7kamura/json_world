@@ -2,6 +2,7 @@
 Provides DSL to define JSON Schema representation of your class.
 
 ## Usage
+### `.property` and `.link`
 ```rb
 class User
   include JsonWorld::PropertyDefinable
@@ -33,7 +34,10 @@ class User
     @name = name
   end
 end
+```
 
+### `#to_json` and `.to_json_schema`
+```rb
 User.new(id: 1, name: "alice").to_json
 # '{"id":1,"name":"alice"}'
 
@@ -62,6 +66,9 @@ User.to_json_schema
 #   ]
 # }'
 ```
+
+See [our tests](https://github.com/r7kamura/json_world/blob/master/spec/json_world/property_definable_spec.rb)
+for more examples.
 
 ## Installation
 Add this line to your application's Gemfile:
