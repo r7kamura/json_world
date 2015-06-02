@@ -43,7 +43,7 @@ module JsonWorld
       # @note Override
       def inherited(child)
         super
-        child.link_definitions = link_definitions
+        child.link_definitions = link_definitions.clone
         child.property_definitions = property_definitions.clone
       end
 
