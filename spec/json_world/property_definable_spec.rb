@@ -51,6 +51,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
         links: [
           {
             href: "/users/:user_id",
+            method: "GET",
             title: "get_user",
           },
         ],

@@ -1,5 +1,7 @@
 module JsonWorld
   class LinkDefinition
+    DEFAULT_HTTP_METHOD = "GET"
+
     # @return [Symbol]
     attr_reader :link_name, :options
 
@@ -15,11 +17,20 @@ module JsonWorld
     def as_json_schema
       {
         href: path,
+        method: http_method,
         title: title,
-      }
+      }.reject do |_key, value|
+        value.nil? || value.empty?
+      end
     end
 
     private
+
+    # @note #method is reserved by Kernel.#method ;(
+    # @return [String]
+    def http_method
+      @options[:method] || DEFAULT_HTTP_METHOD
+    end
 
     # @return [String]
     def path
