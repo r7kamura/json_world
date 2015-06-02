@@ -10,7 +10,6 @@ module JsonWorld
       @property_name = property_name
     end
 
-    # @todo
     # @return [Hash]
     def as_json_schema
       {
