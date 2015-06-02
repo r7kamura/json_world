@@ -1,3 +1,5 @@
+require "active_support/core_ext/object/try"
+
 module JsonWorld
   class PropertyDefinition
     # @return [Symbol]
@@ -11,13 +13,8 @@ module JsonWorld
     end
 
     # @return [Hash{Symbol => Object}]
-    def as_nested_json_schema
-      { property_name => as_json_schema }
-    end
-
-    # @return [Hash{Symbol => Object}]
     def as_json_schema
-      {
+      @options[:type].try(:as_json_schema) || {
         description: description,
         example: example,
         format: format_type,
@@ -30,6 +27,11 @@ module JsonWorld
       }.reject do |_key, value|
         value.nil? || value.respond_to?(:empty?) && value.empty?
       end
+    end
+
+    # @return [Hash{Symbol => Object}]
+    def as_nested_json_schema
+      { property_name => as_json_schema }
     end
 
     # @return [false, true] True if explicitly this property is defined as optional

@@ -1,5 +1,17 @@
 RSpec.describe JsonWorld::DSL do
-  let(:klass) do
+  let(:article_class) do
+    klass = user_class
+    Class.new do
+      include JsonWorld::DSL
+
+      property(
+        :user,
+        type: klass,
+      )
+    end
+  end
+
+  let(:user_class) do
     Class.new do
       include JsonWorld::DSL
 
@@ -100,12 +112,8 @@ RSpec.describe JsonWorld::DSL do
   end
 
   describe ".as_json_schema" do
-    subject do
-      klass.as_json_schema
-    end
-
     it "returns the JSON Schema representation of the receiver class" do
-      is_expected.to eq(
+      expect(user_class.as_json_schema).to eq(
         description: "A dummy object for testing",
         links: [
           {
@@ -181,11 +189,22 @@ RSpec.describe JsonWorld::DSL do
         title: "Dummy object",
       )
     end
+
+    it "allows to embed other resource via type property" do
+      expect(article_class.as_json_schema).to match(
+        properties: hash_including(
+          user: hash_including(
+            description: instance_of(String),
+          ),
+        ),
+        required: [:user],
+      )
+    end
   end
 
   describe "#as_json" do
     subject do
-      klass.new(
+      user_class.new(
         articles_count: 10,
         id: 1,
         name: "alice",
