@@ -1,3 +1,6 @@
+## 0.1.3
+- Support boolean type on property definition
+
 ## 0.1.2
 - Remove links property from embedded object
 - Fix bug that links are unexpectedly shared by other classes
