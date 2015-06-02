@@ -33,6 +33,13 @@ module JsonWorld
         end
       end
 
+      # @return [Hash]
+      def as_json_schema_without_link
+        as_json_schema.reject do |key, _value|
+          key == :links
+        end
+      end
+
       # @note Override
       def inherited(child)
         super
