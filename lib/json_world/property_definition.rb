@@ -14,14 +14,20 @@ module JsonWorld
     # @return [Hash]
     def as_json_schema
       {
+        example: example,
         pattern: pattern_in_string,
         type: type_in_string,
       }.reject do |_key, value|
-        value.nil? || value.empty?
+        value.nil? || value.respond_to?(:empty?) && value.empty?
       end
     end
 
     private
+
+    # @return [Object]
+    def example
+      @options[:example]
+    end
 
     # @note pattern can be used only when type is String or not specified
     # @return [Regexp, nil]
