@@ -26,7 +26,7 @@ module JsonWorld
           properties: properties_as_json_schema,
           required: property_names,
         }.reject do |_key, value|
-          value.empty?
+          value.nil? || value.empty?
         end
       end
 
