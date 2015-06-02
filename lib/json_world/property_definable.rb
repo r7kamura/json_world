@@ -44,8 +44,6 @@ module JsonWorld
         JSON.pretty_generate(as_json_schema)
       end
 
-      private
-
       # @param [Symbol] link_name
       # @param [Hash{Symbol => Object}] options
       def link(link_name, options = {})
@@ -60,20 +58,6 @@ module JsonWorld
       # @return [Array<JsonWorld::LinkDefinition>]
       def link_definitions
         @link_definitions ||= []
-      end
-
-      # @return [Array<Hash>]
-      def links_as_json_schema
-        link_definitions.map(&:as_json_schema)
-      end
-
-      # @return [Hash]
-      def properties_as_json_schema
-        property_definitions.inject({}) do |result, property_definition|
-          result.merge(
-            property_definition.property_name => property_definition.as_json_schema,
-          )
-        end
       end
 
       # @param [Symbol] property_name
@@ -95,6 +79,22 @@ module JsonWorld
       # @return [Array<Symbol>]
       def property_names
         property_definitions.map(&:property_name)
+      end
+
+      private
+
+      # @return [Array<Hash>]
+      def links_as_json_schema
+        link_definitions.map(&:as_json_schema)
+      end
+
+      # @return [Hash]
+      def properties_as_json_schema
+        property_definitions.inject({}) do |result, property_definition|
+          result.merge(
+            property_definition.property_name => property_definition.as_json_schema,
+          )
+        end
       end
     end
   end
