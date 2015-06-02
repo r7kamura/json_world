@@ -22,7 +22,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
         description: "The name of this user",
         example: "alice",
         pattern: /^\w{5}$/,
-        type: String,
+        type: [NilClass, String],
       )
 
       property(
@@ -89,7 +89,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
             description: "The name of this user",
             example: "alice",
             pattern: '^\w{5}$',
-            type: "string",
+            type: ["null", "string"],
           },
           tags: {
             items: {

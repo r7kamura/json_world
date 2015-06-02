@@ -40,7 +40,7 @@ module JsonWorld
     # @note format is preserved by Kernel.#format ;(
     # @return [String, nil]
     def format_type
-      if type == Time
+      if types.include?(Time)
         "date-time"
       end
     end
@@ -66,25 +66,31 @@ module JsonWorld
       end
     end
 
-    # @return [String, nil]
-    def type
-      @options[:type]
+    # @note type can be an Array
+    # @return [Array<String>]
+    def types
+      Array(@options[:type])
     end
 
-    # @return [String, nil]
+    # @return [Array<String>, String, nil]
     def type_in_string
-      case
-      when type == Array
-        "array"
-      when type == Float
-        "float"
-      when type == Hash
-        "object"
-      when type == Integer
-        "integer"
-      when type == String || type == Time
-        "string"
-      end
+      strings = types.map do |type|
+        case
+        when type == Array
+          "array"
+        when type == Float
+          "float"
+        when type == Hash
+          "object"
+        when type == Integer
+          "integer"
+        when type == NilClass
+          "null"
+        when type == String || type == Time
+          "string"
+        end
+      end.compact
+      strings.length >= 2 ? strings : strings.first
     end
 
     # @return [false, nil, true]
