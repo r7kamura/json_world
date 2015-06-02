@@ -3,7 +3,7 @@ module JsonWorld
     DEFAULT_HTTP_METHOD = "GET"
 
     # @return [Symbol]
-    attr_reader :link_name, :options
+    attr_reader :link_name
 
     # @param [Symbol] link_name
     # @param [Hash{Symbol => Object}] options
@@ -34,12 +34,12 @@ module JsonWorld
 
     # @return [String]
     def path
-      options[:path]
+      @options[:path]
     end
 
     # @return [String]
     def title
-      options[:title] || @link_name.to_s
+      @options[:title] || @link_name.to_s
     end
   end
 end
