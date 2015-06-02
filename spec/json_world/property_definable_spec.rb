@@ -94,6 +94,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
     it "returns a JSON compatible hash representation of the instance" do
       is_expected.to match(
         hash_including(
+          "created_at" => instance_of(String),
           "id" => 1,
           "name" => "alice",
         )
