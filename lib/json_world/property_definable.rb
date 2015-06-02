@@ -23,9 +23,11 @@ module JsonWorld
       # @return [Hash]
       def as_json_schema
         {
+          description: description,
           links: links_as_json_schema,
           properties: properties_as_json_schema,
           required: required_property_names,
+          title: title,
         }.reject do |_key, value|
           value.nil? || value.empty?
         end
@@ -88,6 +90,11 @@ module JsonWorld
 
       private
 
+      # @return [String, nil]
+      def description(value = nil)
+        @description ||= value
+      end
+
       # @return [Array<Hash>]
       def links_as_json_schema
         link_definitions.map(&:as_json_schema)
@@ -100,6 +107,11 @@ module JsonWorld
             property_definition.property_name => property_definition.as_json_schema,
           )
         end
+      end
+
+      # @return [String, nil]
+      def title(value = nil)
+        @title ||= value
       end
     end
   end

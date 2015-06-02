@@ -3,6 +3,10 @@ RSpec.describe JsonWorld::PropertyDefinable do
     Class.new do
       include JsonWorld::PropertyDefinable
 
+      title "Dummy object"
+
+      description "A dummy object for testing"
+
       property(
         :created_at,
         description: "The time when this user was born",
@@ -101,6 +105,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
 
     it "returns the JSON Schema representation of the receiver class" do
       is_expected.to eq(
+        description: "A dummy object for testing",
         links: [
           {
             description: "Get a single user",
@@ -171,6 +176,7 @@ RSpec.describe JsonWorld::PropertyDefinable do
           :stats,
           :tags,
         ],
+        title: "Dummy object",
       )
     end
   end
