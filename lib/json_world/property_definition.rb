@@ -15,6 +15,7 @@ module JsonWorld
     def as_json_schema
       {
         example: example,
+        format: format_type,
         pattern: pattern_in_string,
         type: type_in_string,
       }.reject do |_key, value|
@@ -27,6 +28,14 @@ module JsonWorld
     # @return [Object]
     def example
       @options[:example]
+    end
+
+    # @note format is preserved by Kernel.#format ;(
+    # @return [String, nil]
+    def format_type
+      if type == Time
+        "date-time"
+      end
     end
 
     # @note pattern can be used only when type is String or not specified

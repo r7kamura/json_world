@@ -4,6 +4,12 @@ RSpec.describe JsonWorld::PropertyDefinable do
       include JsonWorld::PropertyDefinable
 
       property(
+        :created_at,
+        example: "2000-01-01T00:00:00+00:00",
+        type: Time,
+      )
+
+      property(
         :id,
         example: 1,
         type: Integer,
@@ -21,9 +27,14 @@ RSpec.describe JsonWorld::PropertyDefinable do
         path: "/users/:user_id",
       )
 
-      attr_reader :id, :name
+      attr_reader(
+        :created_at,
+        :id,
+        :name,
+      )
 
       def initialize(id:, name:)
+        @created_at = Time.now
         @id = id
         @name = name
       end
@@ -44,6 +55,11 @@ RSpec.describe JsonWorld::PropertyDefinable do
           },
         ],
         properties: {
+          created_at: {
+            example: "2000-01-01T00:00:00+00:00",
+            format: "date-time",
+            type: "string",
+          },
           id: {
             example: 1,
             type: "integer",
@@ -55,17 +71,11 @@ RSpec.describe JsonWorld::PropertyDefinable do
           },
         },
         required: [
+          :created_at,
           :id,
           :name,
         ],
       )
-    end
-  end
-
-  describe ".property" do
-    it "appends JsonWorld::PropertyDefinition" do
-      expect(klass.property_definitions[0].property_name).to eq :id
-      expect(klass.property_definitions[1].property_name).to eq :name
     end
   end
 
@@ -75,11 +85,11 @@ RSpec.describe JsonWorld::PropertyDefinable do
     end
 
     it "returns a JSON compatible hash representation of the instance" do
-      is_expected.to eq(
-        {
+      is_expected.to match(
+        hash_including(
           "id" => 1,
           "name" => "alice",
-        },
+        )
       )
     end
   end
