@@ -19,6 +19,7 @@ module JsonWorld
         description: description,
         href: path,
         method: http_method,
+        rel: rel,
         schema: schema,
         title: title,
       }.reject do |_key, value|
@@ -42,6 +43,11 @@ module JsonWorld
     # @return [String]
     def path
       @options[:path]
+    end
+
+    # @return [String, nil]
+    def rel
+      @options[:rel]
     end
 
     # @return [Hash{Symbol => Object}, nil]

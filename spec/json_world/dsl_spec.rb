@@ -58,6 +58,7 @@ RSpec.describe JsonWorld::DSL do
         :get_user,
         description: "Get a single user",
         path: "/users/:user_id",
+        rel: "self",
       )
 
       link(
@@ -111,6 +112,7 @@ RSpec.describe JsonWorld::DSL do
             description: "Get a single user",
             href: "/users/:user_id",
             method: "GET",
+            rel: "self",
             title: "get_user",
           },
           {
