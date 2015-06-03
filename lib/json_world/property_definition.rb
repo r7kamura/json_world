@@ -14,18 +14,26 @@ module JsonWorld
 
     # @return [Hash{Symbol => Object}]
     def as_json_schema
-      @options[:type].try(:as_json_schema_without_links) || {
-        description: description,
-        example: example,
-        format: format_type,
-        items: items_as_json_schema,
-        pattern: pattern_in_string,
-        properties: properties_as_json_schema,
-        required: required_property_names,
-        type: type,
-        uniqueItems: unique_flag,
-      }.reject do |_key, value|
-        value.nil? || value.respond_to?(:empty?) && value.empty?
+      if has_json_schema_compatible_type?
+        if @options[:links]
+          @options[:type].as_json_schema
+        else
+          @options[:type].as_json_schema_without_links
+        end
+      else
+        {
+          description: description,
+          example: example,
+          format: format_type,
+          items: items_as_json_schema,
+          pattern: pattern_in_string,
+          properties: properties_as_json_schema,
+          required: required_property_names,
+          type: type,
+          uniqueItems: unique_flag,
+        }.reject do |_key, value|
+          value.nil? || value.respond_to?(:empty?) && value.empty?
+        end
       end
     end
 
@@ -57,6 +65,11 @@ module JsonWorld
       if types.include?(Time)
         "date-time"
       end
+    end
+
+    # @return [false, true]
+    def has_json_schema_compatible_type?
+      @options[:type].respond_to?(:as_json_schema)
     end
 
     # @note Tuple validation is not supported yet
