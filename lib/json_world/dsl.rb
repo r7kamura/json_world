@@ -89,7 +89,7 @@ module JsonWorld
         property_definitions.reject(&:optional?).map(&:property_name)
       end
 
-      # @note .as_json_schema wrappter
+      # @note .as_json_schema wrapper
       # @return [String]
       def to_json_schema
         JSON.pretty_generate(as_json_schema)
