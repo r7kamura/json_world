@@ -14,7 +14,7 @@ module JsonWorld
 
     # @return [Hash{Symbol => Object}]
     def as_json_schema
-      @options[:type].try(:as_json_schema_without_link) || {
+      @options[:type].try(:as_json_schema_without_links) || {
         description: description,
         example: example,
         format: format_type,

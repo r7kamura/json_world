@@ -34,7 +34,7 @@ module JsonWorld
       end
 
       # @return [Hash]
-      def as_json_schema_without_link
+      def as_json_schema_without_links
         as_json_schema.reject do |key, _value|
           key == :links
         end
