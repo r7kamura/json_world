@@ -1,3 +1,6 @@
+## 0.1.4
+- Rename as_json_schema_without_link with as_json_schema_without_links
+
 ## 0.1.3
 - Support boolean type on property definition
 
