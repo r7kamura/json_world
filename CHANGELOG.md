@@ -1,3 +1,6 @@
+## 0.2.0
+- Support :links option on embedding other resource as property
+
 ## 0.1.4
 - Rename as_json_schema_without_link with as_json_schema_without_links
 
