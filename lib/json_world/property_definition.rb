@@ -47,6 +47,13 @@ module JsonWorld
       !!@options[:optional]
     end
 
+    # @return [Hash{Symbol => Object}]
+    def raw_options
+      @options.merge(
+        property_name: @property_name,
+      )
+    end
+
     private
 
     # @return [String, nil]
@@ -138,6 +145,8 @@ module JsonWorld
           "null"
         when this_type == String || this_type == Time
           "string"
+        when this_type.is_a?(String)
+          this_type
         end
       end.compact.uniq
       strings.length >= 2 ? strings : strings.first
