@@ -1,3 +1,6 @@
+## 0.2.1
+- Provides raw_options method to reuse args for property definition
+
 ## 0.2.0
 - Support :links option on embedding other resource as property
 
