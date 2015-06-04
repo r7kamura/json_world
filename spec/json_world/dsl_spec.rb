@@ -61,11 +61,28 @@ RSpec.describe JsonWorld::DSL do
 
       property(
         :tags,
-        example: ["male"],
+        example: [
+          {
+            name: "male",
+            versions: [
+              "0.0.1",
+            ],
+          },
+        ],
         items: {
           description: "An arbitrary tag",
-          pattern: /^\w{3,20}$/,
-          type: String,
+          properties: {
+            name: {
+              type: String,
+            },
+            versions: {
+              items: {
+                type: String,
+              },
+              optional: true,
+              type: Array,
+            },
+          },
         },
         type: Array,
         unique: true,
@@ -182,11 +199,30 @@ RSpec.describe JsonWorld::DSL do
             type: "object",
           },
           tags: {
-            example: ["male"],
+            example: [
+              {
+                name: "male",
+                versions: [
+                  "0.0.1",
+                ],
+              },
+            ],
             items: {
               description: "An arbitrary tag",
-              pattern: '^\w{3,20}$',
-              type: "string",
+              properties: {
+                name: {
+                  type: "string",
+                },
+                versions: {
+                  items: {
+                    type: "string",
+                  },
+                  type: "array"
+                },
+              },
+              required: [
+                :name,
+              ],
             },
             type: "array",
             uniqueItems: true,
