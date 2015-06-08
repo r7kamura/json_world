@@ -1,3 +1,6 @@
+## 0.2.2
+- Support :media_type option on link definition
+
 ## 0.2.1
 - Provides raw_options method to reuse args for property definition
 
