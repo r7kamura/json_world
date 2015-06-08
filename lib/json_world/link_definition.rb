@@ -18,6 +18,7 @@ module JsonWorld
       {
         description: description,
         href: path,
+        mediaType: media_type,
         method: http_method,
         rel: rel,
         schema: schema,
@@ -38,6 +39,11 @@ module JsonWorld
     # @return [String]
     def http_method
       @options[:method] || DEFAULT_HTTP_METHOD
+    end
+
+    # @return [String, nil]
+    def media_type
+      @options[:media_type]
     end
 
     # @return [String]
