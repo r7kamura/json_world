@@ -96,6 +96,20 @@ RSpec.describe JsonWorld::DSL do
       )
 
       link(
+        :get_user_name,
+        description: "Get a single user name",
+        path: "/users/:user_id/name",
+        rel: "self",
+        target_schema: {
+          name: {
+            description: "The name of this user",
+            example: "alice",
+            type: String,
+          },
+        },
+      )
+
+      link(
         :create_user,
         description: "Create a new user",
         method: "POST",
@@ -148,6 +162,25 @@ RSpec.describe JsonWorld::DSL do
             method: "GET",
             rel: "self",
             title: "get_user",
+          },
+          {
+            description: "Get a single user name",
+            href: "/users/:user_id/name",
+            method: "GET",
+            rel: "self",
+            targetSchema: {
+              properties: {
+                name: {
+                  description: "The name of this user",
+                  example: "alice",
+                  type: "string",
+                },
+              },
+              required: [
+                :name,
+              ],
+            },
+            title: "get_user_name",
           },
           {
             description: "Create a new user",
