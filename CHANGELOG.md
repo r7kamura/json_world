@@ -1,3 +1,6 @@
+## 0.2.3
+- Add :target_schema option on link definition
+
 ## 0.2.2
 - Support :media_type option on link definition
 
