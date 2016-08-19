@@ -23,6 +23,7 @@ module JsonWorld
       # @return [Hash]
       def as_json_schema
         {
+          '$schema': schema,
           description: description,
           links: links_as_json_schema,
           properties: properties_as_json_schema,
@@ -119,6 +120,11 @@ module JsonWorld
       # @return [String, nil]
       def title(value = nil)
         @title ||= value
+      end
+
+      # @return [String, nil]
+      def schema(value = nil)
+        @schema ||= value
       end
     end
   end
