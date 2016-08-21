@@ -15,6 +15,8 @@ RSpec.describe JsonWorld::DSL do
     Class.new do
       include JsonWorld::DSL
 
+      schema "http://json-schema.org/draft-04/hyper-schema"
+
       title "Dummy object"
 
       description "A dummy object for testing"
@@ -154,6 +156,7 @@ RSpec.describe JsonWorld::DSL do
   describe ".as_json_schema" do
     it "returns the JSON Schema representation of the receiver class" do
       expect(user_class.as_json_schema).to eq(
+        "$schema": "http://json-schema.org/draft-04/hyper-schema",
         description: "A dummy object for testing",
         links: [
           {
