@@ -1,3 +1,6 @@
+## 0.2.4
+- Support `$schema` property
+
 ## 0.2.3
 - Add :target_schema option on link definition
 
