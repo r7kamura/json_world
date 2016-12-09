@@ -1,3 +1,7 @@
+## 0.2.5
+
+- Remove unnecessary dependency on json
+
 ## 0.2.4
 
 - Support `$schema` property
