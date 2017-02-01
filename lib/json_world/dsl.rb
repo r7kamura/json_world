@@ -23,7 +23,7 @@ module JsonWorld
       # @return [Hash]
       def as_json_schema
         {
-          '$schema': schema,
+          '$schema' => schema,
           description: description,
           links: links_as_json_schema,
           properties: properties_as_json_schema,
