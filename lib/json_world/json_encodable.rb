@@ -17,7 +17,7 @@ module JsonWorld
       names = names & Array(options[:only]) if options[:only]
       names.inject({}) do |hash, property_name|
         key = property_name
-        value = send(property_name)
+        value = __send__(property_name)
         value = value.iso8601 if value.is_a?(Time)
         hash.merge(key => value)
       end
