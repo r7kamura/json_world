@@ -1,3 +1,7 @@
+## 0.2.6
+
+- Use `#__send__` instead of `#send`
+
 ## 0.2.5
 
 - Remove unnecessary dependency on json
