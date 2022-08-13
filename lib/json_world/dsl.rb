@@ -52,9 +52,9 @@ module JsonWorld
       # @param [Hash{Symbol => Object}] options
       def link(link_name, options = {})
         link_definitions << JsonWorld::LinkDefinition.new(
-          options.merge(
+          link_name: link_name,
+          **options.merge(
             parent: self,
-            link_name: link_name,
           ),
         )
       end
@@ -68,9 +68,9 @@ module JsonWorld
       # @param [Hash{Symbol => Object}] options
       def property(property_name, options = {})
         property_definitions << JsonWorld::PropertyDefinition.new(
-          options.merge(
+          property_name: property_name,
+          **options.merge(
             parent: self,
-            property_name: property_name,
           )
         )
       end
