@@ -7,7 +7,7 @@ module JsonWorld
 
     # @param [Symbol, nil] property_name Note that unnamed property can be passed
     # @param [Hash{Symbol => Object}] options
-    def initialize(property_name: nil, **options)
+    def initialize(property_name: nil, options)
       @options = options
       @property_name = property_name
     end
@@ -83,7 +83,7 @@ module JsonWorld
     # @return [Array<Hash>, nil]
     def items_as_json_schema
       if @options[:items]
-        JsonWorld::PropertyDefinition.new(**@options[:items]).as_json_schema
+        JsonWorld::PropertyDefinition.new(@options[:items]).as_json_schema
       end
     end
 
@@ -113,7 +113,7 @@ module JsonWorld
         @options[:properties].map do |property_name, options|
           JsonWorld::PropertyDefinition.new(
             property_name: property_name,
-            **options
+            options
           )
         end
       end

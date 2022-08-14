@@ -53,7 +53,7 @@ module JsonWorld
       def link(link_name, options = {})
         link_definitions << JsonWorld::LinkDefinition.new(
           link_name: link_name,
-          **options.merge(
+          options.merge(
             parent: self,
           ),
         )
@@ -69,7 +69,7 @@ module JsonWorld
       def property(property_name, options = {})
         property_definitions << JsonWorld::PropertyDefinition.new(
           property_name: property_name,
-          **options.merge(
+          options.merge(
             parent: self,
           )
         )

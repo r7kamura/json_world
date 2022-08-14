@@ -7,7 +7,7 @@ module JsonWorld
 
     # @param [Symbol] link_name
     # @param [Hash{Symbol => Object}] options
-    def initialize(link_name: nil, **options)
+    def initialize(link_name: nil, options)
       @options = options
       @link_name = link_name
     end
