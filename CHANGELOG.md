@@ -1,4 +1,4 @@
-## Unreleased
+## 0.3.0
 
 - Fix keyword arguments error for Ruby 3 support.
 
