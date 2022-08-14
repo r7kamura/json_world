@@ -1,3 +1,7 @@
+## Unreleased
+
+- Fix keyword arguments error for Ruby 3 support.
+
 ## 0.2.6
 
 - Use `#__send__` instead of `#send`
