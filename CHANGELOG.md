@@ -1,3 +1,7 @@
+## Unreleased
+
+- Provides options method to reuse args for property definition except property name
+
 ## 0.3.0
 
 - Fix keyword arguments error for Ruby 3 support.

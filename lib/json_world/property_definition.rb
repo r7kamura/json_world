@@ -2,6 +2,9 @@ require "active_support/core_ext/object/try"
 
 module JsonWorld
   class PropertyDefinition
+    # @return [Hash{Symbol => Object}]
+    attr_reader :options
+
     # @return [Symbol]
     attr_reader :property_name
 
