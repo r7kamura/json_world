@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 0.4.0
+
 - Add `JsonWorld::PropertyDefinition#options`.
 
 ## 0.3.0
