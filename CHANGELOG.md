@@ -1,6 +1,6 @@
 ## Unreleased
 
-- Provides options method to reuse args for property definition except property name
+- Add `JsonWorld::PropertyDefinition#options`.
 
 ## 0.3.0
 
