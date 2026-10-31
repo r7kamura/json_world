@@ -67,7 +67,7 @@ User.to_json_schema
 # }'
 ```
 
-See [our tests](https://github.com/r7kamura/json_world/blob/master/spec/json_world/dsl_spec.rb)
+See [our tests](https://github.com/r7kamura/json_world/blob/main/spec/json_world/dsl_spec.rb)
 for more examples.
 
 ## Installation
