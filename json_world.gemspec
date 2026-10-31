@@ -11,6 +11,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/r7kamura/json_world"
   spec.license       = "MIT"
 
+  spec.required_ruby_version = ">= 3.3"
+
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(spec)/}) }
   spec.require_paths = ["lib"]
 
